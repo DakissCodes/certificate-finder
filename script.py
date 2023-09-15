@@ -12,45 +12,14 @@ from openpyxl import load_workbook
     # match index with file loc
     # move file loc into new directory
 
-directory = os.listdir('C:\\Users\\justi\\')
-
 
 # print(directory)
 
 wb = load_workbook(filename= 'summary_of_participants.xlsx')
 ws = wb.active
 
-column_a = ws['1']
 
-# function returns array of row (name, bool...)
-def get_row(row_number):
-    row = ws[row_number]
-    array = []
-    for cell in row:
-        array.append(cell.value)
-        
-    return array
-
-# print(get_row(1))
-
-
-max_rows = 27
-
-for row_number in range(1,max_rows):
-    # array of names and bool
-    array = get_row(row_number)
-    # first element is array
-    name_of_participant = array[0]
-    print(name_of_participant)
-    # for x in range(1,11):
-        # index of 1-4 is day1
-        # index of 5-7 is day 2
-        # index of 8-9 is day 3
-        # a function that accepts index number/topic number
-        # if true match topic number to respected file location
-        # if false, move on!
-        # 
-        
+# functions takes in name of participants, and index
 def cert_finder(name_of_participant,topic_number):
     main_dir = 'C:\\Users\\justi\\Documents\\certs'
 
@@ -84,25 +53,36 @@ def cert_finder(name_of_participant,topic_number):
             # if topic is in certificate, true
             result = True
         
-    print(result)             
+    print(result)   
+ 
+# function gets array with name and all bool values              
+def get_row(row_number):
+    row = ws[row_number]
+    array = []
+    for cell in row:
+        array.append(cell.value)
+        
+    return array
 
 
-# to match each name in excel to each photo:
-# we remove .png from photo file
-# we match each letter!    
-# cert_finder('Lhexy Alyanna Catimbang', 1)
+max_rows = 27
 
-for i in range(1,9):
-    cert_finder('LOUIE JAMES S. REGUINDIN', i)
-   
-# column_participants =  ws['A']
-# parent_dir = 'C:\\Users\\justi\\Documents\\certs_landing'
-# part_array = []
-# for cell in column_participants:
-#     part_array.append(cell.value)
-    
-# for item in part_array:
-#     os.mkdir(os.path.join(parent_dir,item))
-    
+for row_number in range(1,max_rows):
+    # array of names and bool
+    array = get_row(row_number)
+    # first element is name
+    name_of_participant = array[0]
+
+    for i in range(1,9):
+        cert_finder(name_of_participant,i)
+    # for x in range(1,11):
+        # index of 1-4 is day1
+        # index of 5-7 is day 2
+        # index of 8-9 is day 3
+        # a function that accepts index number/topic number
+        # if true match topic number to respected file location
+        # if false, move on!
+        # 
+        
 
 
